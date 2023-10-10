@@ -1,0 +1,23 @@
+#!/bin/bash
+yum update -y
+yum install httpd -y
+systemctl start httpd
+systemctl enable httpd
+cd /var/www/html
+
+EC2AZ=$(TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/placement/availability-zone)
+
+# Create index.html directly
+cat <<EOF > index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EC2 Instance Information</title>
+</head>
+<body>
+    <h1>Welcome to my EC2 Instance</h1>
+    <p>This web page is hosted on an Amazon EC2 instance.</p>
+    <p>Availability Zone: $EC2AZ</p>
+</body>
+</html>
+EOF
