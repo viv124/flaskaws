@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Information</title>
+</head>
+<body>
+    <h1>Person Information</h1>
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="0" required><br><br>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <h2>Person Information:</h2>
+    <p>Name: {{ person_info.get('name', '') }}</p>
+    <p>Age: {{ person_info.get('age', '') }}</p>
+    <p>Address: {{ person_info.get('address', '') }}</p>
+    <a href="{{ url_for('get_india_info') }}">Get Information about India</a>
+</body>
+</html>
